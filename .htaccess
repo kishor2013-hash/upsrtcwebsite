@@ -1,0 +1,44 @@
+# ============================================================
+# UPSRCTC ROADWAYS – DIGITAL DUTY PORTAL V4.0
+# Apache .htaccess configuration for Hostinger Shared Hosting
+# Application Path: /public_html/upsrctc/
+# URL: https://upsrctc.grofasto.com/
+# ============================================================
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Force HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Block direct web access to sensitive configuration, database and markdown files
+    RewriteRule ^(\.env|\.git|database\.sql|README.*|composer.*|package.*|\.htaccess)$ - [F,L,NC]
+
+    # Allow direct access to existing files and directories
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # If request starts with /api/, pass to the corresponding php file or 404
+    RewriteCond %{REQUEST_URI} ^/api/ [NC]
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^(.*)$ $1.php [L]
+
+    # Fallback all other client-side routing to index.html
+    RewriteRule ^ index.html [L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Gzip Compression for Performance
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript application/json
+</IfModule>

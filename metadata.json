@@ -1,0 +1,6 @@
+{
+  "name": "UPSRCTC Roadways Digital Duty Portal V4.0",
+  "description": "Official Progressive Web App and Digital Duty Portal for UPSRCTC Roadways drivers and conductors, powered by Grofasto Digital Solutions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
