@@ -11,7 +11,7 @@
     <meta property="og:image" content="/pwa-512x512.png" />
     <meta name="twitter:card" content="summary_large_image" />
     
-    <meta name="theme-color" content="#1e3a8a" />
+    <meta name="theme-color" content="#0f172a" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -21,10 +21,57 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
+    
+    <!-- Standalone Style Sheet -->
+    <link rel="stylesheet" href="/style.css" />
+
+    <!-- Tailwind CSS (Direct Browser CDN - Zero Build Tools Required) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                950: '#0a1024',
+                900: '#0f1d40',
+                800: '#1e3066',
+                700: '#2b448a'
+              }
+            }
+          }
+        }
+      }
+    </script>
+
+    <!-- Lucide Icons (Direct Browser CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
   </head>
-  <body class="bg-slate-100 text-slate-900 antialiased selection:bg-amber-500 selection:text-white">
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body class="bg-slate-100 text-slate-900 antialiased selection:bg-amber-500 selection:text-slate-950 font-sans min-h-screen flex flex-col">
+    <!-- Offline Indicator -->
+    <div id="offline-banner" class="hidden fixed top-0 left-0 right-0 z-50 bg-rose-600 text-white px-4 py-2 text-xs font-semibold flex items-center justify-center gap-2 shadow-lg">
+      <i data-lucide="wifi-off" class="w-4 h-4"></i>
+      <span>Internet connection unavailable. Data will be saved as LOCAL DRAFT until central MySQL connection is restored.</span>
+    </div>
+
+    <!-- Main Dynamic Application Container -->
+    <div id="app" class="flex-1 flex flex-col">
+      <!-- Loading State Initial Shell -->
+      <div class="min-h-screen flex flex-col items-center justify-center bg-slate-950 text-white">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-400 p-1 mb-4 flex items-center justify-center shadow-lg animate-pulse">
+          <img src="/icon.svg" alt="UPSRCTC Emblem" class="w-12 h-12 object-contain" />
+        </div>
+        <div class="flex items-center gap-2 text-amber-400 font-bold tracking-wider text-sm uppercase">
+          <div class="w-3.5 h-3.5 border-2 border-amber-400 border-t-transparent rounded-full animate-spin"></div>
+          <span>Loading UPSRCTC Portal V4.0...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Standalone Vanilla JavaScript Application -->
+    <script src="/app.js"></script>
+
+    <!-- PWA Service Worker Registration -->
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
@@ -36,4 +83,3 @@
     </script>
   </body>
 </html>
-

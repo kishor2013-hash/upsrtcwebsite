@@ -1,0 +1,47 @@
+/* UPSRCTC ROADWAYS - DIGITAL DUTY PORTAL V4.0
+ * Standalone CSS Styles
+ * Powered by Grofasto Digital Solutions
+ */
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print, header, footer, #offline-banner, .modal-backdrop-blur {
+    display: none !important;
+  }
+  #printable-duty-report {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
